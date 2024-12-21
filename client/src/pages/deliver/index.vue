@@ -86,7 +86,7 @@ const delivered = async (id: number, index: number, status: 'finish' | 'canceled
 
 const sortedOrders = computed(() => {
   if(orders.value.length === 0) return [] 
-  return orders.value.sort((a, b) => {
+  return orders.value.filter(o => !!o.latitude && !!o.longitude).sort((a, b) => {
       const distanceA = haversineDistance(courierPosition.value[0], courierPosition.value[1], a.latitude, a.longitude);
       const distanceB = haversineDistance(courierPosition.value[0], courierPosition.value[1], b.latitude, b.longitude);
       return distanceA - distanceB;
