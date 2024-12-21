@@ -28,6 +28,7 @@ export const getAllOrders = async (req: Request, res: Response) => {
                     user: {
                         select: {
                             id: true,
+                            phone: true,
                             first_name: true,
                             last_name: true,
                         }
@@ -149,7 +150,7 @@ export const createOrder =  async (req: Request, res: Response) => {
     try {
         const order_items: any[] = [] 
         const { body_order_items, ...order_data } = req.body
-        const order = await prisma.order.create({ data: order_data })
+        const order = await prisma.order.create({ data: order_data, include: { user: { select: { id: true, first_name: true, last_name: true, phone: true } } } })
 
         await prisma.user.update({ where: { id: order.user_id }, data: { count_of_orders: { increment: 1 } } })
 

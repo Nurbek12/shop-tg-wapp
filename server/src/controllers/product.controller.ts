@@ -131,7 +131,7 @@ export const createProduct =  async (req: Request, res: Response) => {
 export const addPhotoToProduct =  async (req: Request, res: Response) => {
     try {
         const images = await Promise.all((req.body.images).map((file: any) => {
-            console.log('before_creating', file.name)
+            // console.log('before_creating', file.name)
             return prisma.image.create({
                 data: {
                     url: file.url,
@@ -141,7 +141,7 @@ export const addPhotoToProduct =  async (req: Request, res: Response) => {
                 }
             })
         }))
-        console.log('after_creating', images)
+        // console.log('after_creating', images)
         return res.status(200).json({ data: images })
     } catch (error) {
         console.log(error)
@@ -174,6 +174,9 @@ export const updateProduct =  async (req: Request, res: Response) => {
 export const deleteProduct = async (req: Request, res: Response) => {
     try {
         await prisma.image.deleteMany({ where: { product_id: +req.params.id } })
+        await prisma.review.deleteMany({ where: { product_id: +req.params.id } })
+        await prisma.orderItem.deleteMany({ where: { product_id: +req.params.id } })
+        
         await prisma.product.delete({ where: { id: +req.params.id } })
 
         return res.status(200).json({ data: true })

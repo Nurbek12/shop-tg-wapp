@@ -77,6 +77,7 @@ export interface IOrder {
 
     status: "pending" | "finish" | "canceled"
     total: number
+    address?: string
     user_id: number | null
     user_tg_id: string | null
     user: IUser

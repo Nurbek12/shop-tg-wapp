@@ -6,3 +6,9 @@ dist
 
 upload/*
 !upload/text.txt
+test
+jest.config.js
+prisma/dev.sqlite
+prisma/migrations
+src/validators
+src/middlewares/validator.middleware.ts

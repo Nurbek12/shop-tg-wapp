@@ -90,7 +90,7 @@ const headers = [
     { name: "Управлять", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
-const item = reactive<Partial<IProduct>>({
+const item = ref<Partial<IProduct>>({
     name: "",
     price: null,
     discount: null,
@@ -163,14 +163,14 @@ const update = async (index: number, body: any) => {
 
 const save = async () => {
     try {
-        delete item.category
+        if(item.value.category) delete item.value.category
         createLoading.value = true
         let res_product
 
         if(itemIndex.value !== null)
-            res_product = await update(itemIndex.value, item)
+            res_product = await update(itemIndex.value, item.value)
         else
-            res_product = await add(item)
+            res_product = await add(item.value)
 
         images.value.length > 0 &&
             handle_add_image(res_product.id)
@@ -207,7 +207,7 @@ const init = async () => {
 }
 
 const close = () => {
-    Object.assign(item, {
+    item.value = Object.assign({}, {
         name: "",
         price: null,
         discount: null,
@@ -215,12 +215,6 @@ const close = () => {
         stock_count: null,
         category_id: undefined,
     })
-    delete item.id
-    delete item.images
-    delete item.reviews
-    delete item.category
-    delete item.created_at
-    delete item.updated_at
     images.value = []
     dialog.value = false
     itemIndex.value = null

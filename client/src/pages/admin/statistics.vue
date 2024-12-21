@@ -15,7 +15,7 @@
 
         <div class="grid grid-cols-1">
             <div class="py-2 px-3 bg-white border rounded-xl flex gap-4">
-                <app-chart title="Количество продажы, пользователи, репорты за последние 30 дней (fake data)" :icon="BxBarChartAlt" :data="data" />
+                <app-chart title="Количество продажы, пользователи, репорты за последние 30 дней" :icon="BxBarChartAlt" :data="data" />
             </div>
         </div>
     </div>

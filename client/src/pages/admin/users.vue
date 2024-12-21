@@ -40,7 +40,7 @@ const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
     { name: "Фамилия", value: "last_name", sortable: true, balancedText: true, custom: false },
-    // { name: "Телефон", value: "phone", sortable: false, balancedText: false, custom: false },
+    { name: "Телефон", value: "phone", sortable: false, balancedText: false, custom: false },
     { name: "Адрес", value: "address", sortable: false, balancedText: false, custom: false },
     { name: "Количество заказов", value: "count_of_orders", sortable: true, balancedText: false, custom: false },
     { name: "Добавлено", value: "created_at", sortable: true, balancedText: false, custom: true },

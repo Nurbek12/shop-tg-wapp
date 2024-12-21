@@ -19,3 +19,5 @@ app
         bot.start()
         console.log('Server started...')
     })
+
+export { app }

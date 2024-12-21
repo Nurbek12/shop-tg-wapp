@@ -105,12 +105,12 @@ const handleCreateUser = async (c: any) => {
             reply_markup: new InlineKeyboard().webApp('Открыть магазин', WEB_APP_URL!)
         })
 
-        // let user = register_users.get(c.chat?.id!)
+        let user = register_users.get(c.chat?.id!)
 
-        // if(!user) {
-        //     register_users.set(c.chat?.id!, {})
-        //     user = register_users.get(c.chat?.id!)
-        // }
+        if(!user) {
+            register_users.set(c.chat?.id!, {})
+            user = register_users.get(c.chat?.id!)
+        }
 
         // if(!user?.longitude || !user?.latitude) {
         //     await c.reply('Нам нужно ваше местоположения и телефон', {
@@ -119,20 +119,20 @@ const handleCreateUser = async (c: any) => {
         //     return
         // }
         
-        // if(!user?.phone) {
-        //     await c.reply('Нам нужно ваше телефон', {
-        //         reply_markup: new Keyboard().requestContact('Поделиться c телефоном').resized(),
-        //     })
-        //     return
-        // }
+        if(!user?.phone) {
+            await c.reply('Нам нужно ваше телефон', {
+                reply_markup: new Keyboard().requestContact('Поделиться c телефоном').resized(),
+            })
+            return
+        }
         
         await prisma.user.create({data: {
             first_name: c.chat?.first_name!,
             last_name: c.chat?.last_name! || '',
             user_tg_id: ''+c.chat?.id!,
             count_of_orders: 0,
+            phone: user.phone,
             address: "",
-            phone: '',
         }})
         
         setStatistics('users', 1)
